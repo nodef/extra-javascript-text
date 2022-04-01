@@ -227,13 +227,13 @@ const RJSDOCSYMBOL = /(\/\*\*[\s\S]*?\*\/)(?:\s+(?:(export)\s+(?:(default)\s+)?)
 /**
  * JSDoc symbol match function.
  * @param full full jsdoc symbol match
+ * @param jsdoc jsdoc attached to symbol
  * @param name symbol name
  * @param kind symbol kind
  * @param isExported symbol is exported?
  * @param isDefault symbol is default?
- * @param jsdoc jsdoc attached to symbol
  */
-export type JsdocSymbolMatchFunction = (full: string, name: string, kind: string, isExported: boolean, isDefault: boolean, jsdoc: string) => void;
+export type JsdocSymbolMatchFunction = (full: string, jsdoc: string, name: string, kind: string, isExported: boolean, isDefault: boolean) => void;
 
 /**
  * Match jsdoc symbols in javascript text.
@@ -243,7 +243,7 @@ export type JsdocSymbolMatchFunction = (full: string, name: string, kind: string
 export function forEachJsdocSymbol(txt: string, fn: JsdocSymbolMatchFunction): void {
   var txt = replaceStrings(txt, () => '"AUTO_STRING"'), m = null;
   while ((m = RJSDOCSYMBOL.exec(txt)) != null)
-    fn(m[0], m[5] || "", (m[4] || "").replace(/\s+/g, " "), m[2] === "export", m[3] === "default", m[1] || "");
+    fn(m[0], m[1] || "", m[5] || "", (m[4] || "").replace(/\s+/g, " "), m[2] === "export", m[3] === "default");
 }
 
 
@@ -251,6 +251,8 @@ export function forEachJsdocSymbol(txt: string, fn: JsdocSymbolMatchFunction): v
 export interface JsdocSymbol {
   /** Full jsdoc symbol match. */
   full: string,
+  /** JSDoc attached to symbol. */
+  jsdoc: string,
   /** Symbol name. */
   name: string,
   /** Symbol kind. */
@@ -259,8 +261,6 @@ export interface JsdocSymbol {
   isExported: boolean,
   /** Symbol is default? */
   isDefault: boolean,
-  /** JSDoc attached to symbol. */
-  jsdoc: string,
 }
 
 /**
@@ -270,8 +270,8 @@ export interface JsdocSymbol {
  */
 export function jsdocSymbols(txt: string): JsdocSymbol[] {
   var a = [];
-  forEachJsdocSymbol(txt, (full, name, kind, _export, _default, jsdoc) => {
-    a.push({full, name, kind, export: _export, default: _default, jsdoc});
+  forEachJsdocSymbol(txt, (full, jsdoc, name, kind, isExported, isDefault) => {
+    a.push({full, jsdoc, name, kind, isExported, isDefault});
   });
   return a;
 }
@@ -280,14 +280,14 @@ export function jsdocSymbols(txt: string): JsdocSymbol[] {
 /**
  * Jsdoc symbol replace function.
  * @param full full jsdoc symbol match
+ * @param jsdoc jsdoc attached to symbol
  * @param name symbol name
  * @param kind symbol kind
  * @param isExported symbol is exported?
  * @param isDefault symbol is default?
- * @param jsdoc jsdoc attached to symbol
  * @returns updated jsdoc symbol
  */
-export type JsdocSymbolReplaceFunction = (full: string, name: string, kind: string, isExported: boolean, isDefault: boolean, jsdoc: string) => string;
+export type JsdocSymbolReplaceFunction = (full: string, jsdoc: string, name: string, kind: string, isExported: boolean, isDefault: boolean) => string;
 
 /**
  * Replace jsdoc symbols in javascript text.
@@ -298,7 +298,7 @@ export type JsdocSymbolReplaceFunction = (full: string, name: string, kind: stri
 export function replaceJsdocSymbols(txt: string, fn: JsdocSymbolReplaceFunction): string {
   var [txt, tags] = tagStrings(txt);
   txt = txt.replace(RJSDOCSYMBOL, (m, p1, p2, p3, p4, p5) => {
-    return fn(m, p5 || "", (p4 || "").replace(/\s+/g, " "), p2 === "export", p3 === "default", p1 || "");
+    return fn(m, p1 || "", p5 || "", (p4 || "").replace(/\s+/g, " "), p2 === "export", p3 === "default");
   });
   return untagStrings(txt, tags);
 }
@@ -354,8 +354,8 @@ export interface ExportSymbol {
  */
 export function exportSymbols(txt: string): ExportSymbol[] {
   var a = [];
-  forEachExportSymbol(txt, (full, name, kind, _default) => {
-    a.push({full, name, kind, default: _default});
+  forEachExportSymbol(txt, (full, name, kind, isDefault) => {
+    a.push({full, name, kind, isDefault});
   });
   return a;
 }
