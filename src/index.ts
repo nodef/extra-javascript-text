@@ -221,7 +221,7 @@ export function uncomment(txt: string, empty: boolean=false): string {
 // ------------
 
 /** Regex for jsdoc and attached symbol: [jsdoc, export, default, kind, name]. */
-const RJSDOCSYMBOL = /(\/\*\*[\s\S]*?\*\/)(?:\s+(?:(export)\s+(?:(default)\s+)?)?(type|enum|interface|const|var|let|(?:async\s+)?function\*?|class)\s+([\w$]+))?/g;
+const RJSDOCSYMBOL = /(\/\*\*[\s\S]*?\*\/)(?:\s+(?:(export)\s+(?:(default)\s+)?)?(?:declare\s+)?(type|enum|interface|const|var|let|(?:async\s+)?function\*?|class)\s+([\w$]+))?/g;
 
 
 /**
