@@ -1,6 +1,6 @@
 {
   "name": "extra-javascript-text",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Utilities for processing JavaScript text.",
   "main": "index.js",
   "module": "index.mjs",
