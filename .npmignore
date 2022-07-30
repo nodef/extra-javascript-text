@@ -1,15 +1,19 @@
 # Source only
 .gitmodules
 .github/
+.docs/
 src/
 data/
 wiki/
 tests/
+unused/
+test.js
+CITATION.cff
 TODO
 
 # Build
 .build/
-.docs/
+coverage/
 .travis.yml
 .coveralls.yml
 tsconfig.json

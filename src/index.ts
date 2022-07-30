@@ -6,7 +6,7 @@
  * @param txt javascript text
  * @param i index of string begin
  */
- function indexOfClosingString(txt: string, i: number): number {
+function indexOfClosingString(txt: string, i: number): number {
   var q = txt.charAt(i);
   while (true) {
     var I = txt.indexOf(q, i + 1);
