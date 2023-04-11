@@ -4,9 +4,9 @@ Utilities for processing JavaScript text.<br>
 📜 [Files](https://unpkg.com/extra-javascript-text/),
 📰 [Docs](https://nodef.github.io/extra-javascript-text/).
 
-This package is available in both *Node.js* and *Web* formats. The web format
-is exposed as `extra_javascript_text` standalone variable and can be loaded from
-[jsDelivr CDN].
+This package is available in *Node.js* and *Web* formats. To use it on the web,
+simply use the `extra_javascript_text` global variable after loading with a `<script>`
+tag from the [jsDelivr CDN].
 
 > Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
 
@@ -15,17 +15,17 @@ is exposed as `extra_javascript_text` standalone variable and can be loaded from
 <br>
 
 ```javascript
-const fs         = require('fs');
-const javascript = require('extra-javascript-text');
+const fs          = require('fs');
+const xjavascript = require('extra-javascript-text');
 
 
 function main() {
   var txt = fs.readFileSync('src/index.ts', 'utf8').replace(/\r?\n/, '\n');
 
-  javascript.importSymbols(txt);
+  xjavascript.importSymbols(txt);
   // []
 
-  javascript.exportSymbols(txt);
+  xjavascript.exportSymbols(txt);
   // [
   //   {
   //     full: 'export function tagStrings',
@@ -42,7 +42,7 @@ function main() {
   //   ...
   // ]
 
-  javascript.jsdocSymbols(txt);
+  xjavascript.jsdocSymbols(txt);
   // [
   //   {
   //     full: '/**\r\n' +
