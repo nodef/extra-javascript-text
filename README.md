@@ -117,7 +117,7 @@ main();
 [![](https://img.youtube.com/vi/rJYcZX8na_Q/maxresdefault.jpg)](https://www.youtube.com/watch?v=rJYcZX8na_Q)<br>
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
 [![DOI](https://zenodo.org/badge/476759917.svg)](https://zenodo.org/badge/latestdoi/476759917)
-
+![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-javascript-text)
 
 [tagStrings]: https://nodef.github.io/extra-javascript-text/modules.html#tagStrings
 [untagStrings]: https://nodef.github.io/extra-javascript-text/modules.html#untagStrings
